@@ -1,8 +1,8 @@
 # SDK Examples
 
-This directory contains examples demonstrating how to use the `buildcore`.
+This directory contains examples demonstrating how to use the `agent-sandbox`.
 
-📚 **[Full Documentation](https://oblien.com/docs/sandbox)**
+📚 **[Full Documentation](https://oblien.com/agent-sandbox)**
 
 ## Running Examples
 

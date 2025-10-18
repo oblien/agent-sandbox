@@ -1,7 +1,7 @@
 {
-  "name": "buildcore-examples",
+  "name": "agent-sandbox-examples",
   "version": "1.0.0",
-  "description": "Examples for buildcore",
+  "description": "Examples for agent-sandbox",
   "type": "module",
   "scripts": {
     "modern": "node modern-usage.js",
@@ -10,7 +10,7 @@
     "advanced": "node advanced.js"
   },
   "dependencies": {
-    "buildcore": "file:.."
+    "agent-sandbox": "file:.."
   }
 }
 

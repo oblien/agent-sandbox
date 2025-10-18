@@ -1,6 +1,6 @@
 # SDK Structure Overview
 
-This document provides an overview of the `buildcore` package structure.
+This document provides an overview of the `agent-sandbox` package structure.
 
 ## Directory Structure
 
@@ -170,7 +170,7 @@ All API modules follow the same pattern:
 Every API follows this pattern:
 
 ```javascript
-import { SandboxClient } from 'buildcore';
+import { SandboxClient } from 'agent-sandbox';
 
 // 1. Initialize client with config
 const sandbox = new SandboxClient({

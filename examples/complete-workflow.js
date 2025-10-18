@@ -1,10 +1,10 @@
 /**
  * Complete workflow example showing authentication, sandbox creation, and usage
  * 
- * Documentation: https://oblien.com/docs/sandbox
+ * Documentation: https://oblien.com/agent-sandbox
  */
 
-import { OblienClient, SandboxClient } from 'buildcore';
+import { OblienClient, SandboxClient } from 'agent-sandbox';
 
 async function completeWorkflow() {
   console.log('=== Complete Oblien Sandbox Workflow ===\n');
@@ -129,7 +129,7 @@ module.exports = { greet };
   console.log('  - Keep your sandbox token secure');
   console.log('  - Use snapshots to save important states');
   console.log('  - Stop sandboxes when not in use to save resources');
-  console.log('  - Visit https://oblien.com/docs/sandbox for full documentation');
+  console.log('  - Visit https://oblien.com/agent-sandbox for full documentation');
   console.log('\n🧹 Cleanup (optional):');
   console.log(`  await client.sandboxes.delete('${sandbox.sandboxId}');\n`);
 

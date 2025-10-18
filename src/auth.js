@@ -6,7 +6,7 @@ import { SandboxClient } from './client.js';
  * 
  * @example
  * ```javascript
- * import { OblienClient } from 'buildcore';
+ * import { OblienClient } from 'agent-sandbox';
  * 
  * const client = new OblienClient({
  *   clientId: process.env.OBLIEN_CLIENT_ID,
@@ -30,7 +30,7 @@ export class OblienClient {
    * @param {Object} config - Client configuration
    * @param {string} config.clientId - Your Oblien client ID
    * @param {string} config.clientSecret - Your Oblien client secret
-   * @param {string} [config.apiURL='https://api.oblien.com'] - API base URL
+   * @param {string} [config.apiURL='https://api.oblien.com/sandbox'] - API base URL
    */
   constructor(config) {
     if (!config.clientId) {
@@ -42,8 +42,7 @@ export class OblienClient {
 
     this.clientId = config.clientId;
     this.clientSecret = config.clientSecret;
-    this.apiURL = (config.apiURL || 'https://api.oblien.com').replace(/\/$/, '');
-    this.accessToken = null;
+    this.apiURL = (config.apiURL || 'https://api.oblien.com/sandbox').replace(/\/$/, '');
 
     /**
      * Sandboxes API (low-level access)
@@ -108,36 +107,13 @@ export class OblienClient {
   }
 
   /**
-   * Authenticate and get access token
-   * @returns {Promise<string>} Access token
+   * Get authorization headers with client credentials
+   * @returns {Object} Headers with client credentials
    */
-  async authenticate() {
-    if (this.accessToken) {
-      return this.accessToken;
-    }
-
-    try {
-      const response = await http.post(`${this.apiURL}/auth/token`, {
-        client_id: this.clientId,
-        client_secret: this.clientSecret,
-        grant_type: 'client_credentials'
-      });
-
-      this.accessToken = response.access_token;
-      return this.accessToken;
-    } catch (error) {
-      throw new Error(`Authentication failed: ${error.message}`);
-    }
-  }
-
-  /**
-   * Get authorization headers
-   * @returns {Promise<Object>} Headers with bearer token
-   */
-  async getAuthHeaders() {
-    const token = await this.authenticate();
+  getAuthHeaders() {
     return {
-      'Authorization': `Bearer ${token}`
+      'X-Client-ID': this.clientId,
+      'X-Client-Secret': this.clientSecret
     };
   }
 
@@ -147,7 +123,7 @@ export class OblienClient {
    * @returns {Promise<any>} Response data
    */
   async get(path) {
-    const headers = await this.getAuthHeaders();
+    const headers = this.getAuthHeaders();
     return http.get(`${this.apiURL}${path}`, headers);
   }
 
@@ -158,7 +134,7 @@ export class OblienClient {
    * @returns {Promise<any>} Response data
    */
   async post(path, body = {}) {
-    const headers = await this.getAuthHeaders();
+    const headers = this.getAuthHeaders();
     return http.post(`${this.apiURL}${path}`, body, headers);
   }
 
@@ -168,7 +144,7 @@ export class OblienClient {
    * @returns {Promise<any>} Response data
    */
   async delete(path) {
-    const headers = await this.getAuthHeaders();
+    const headers = this.getAuthHeaders();
     return http.del(`${this.apiURL}${path}`, headers);
   }
 }
@@ -194,7 +170,7 @@ class SandboxesAPI {
    * @returns {Promise<Object>} Sandbox details {id, token, url, name, status}
    */
   async create(options = {}) {
-    const response = await this.client.post('/sandboxes', options);
+    const response = await this.client.post('/', options);
     return response.sandbox;
   }
 
@@ -208,7 +184,7 @@ class SandboxesAPI {
    */
   async list(options = {}) {
     const params = new URLSearchParams(options).toString();
-    const path = `/sandboxes${params ? '?' + params : ''}`;
+    const path = `/${params ? '?' + params : ''}`;
     return this.client.get(path);
   }
 
@@ -218,7 +194,7 @@ class SandboxesAPI {
    * @returns {Promise<Object>} Sandbox details
    */
   async get(sandboxId) {
-    return this.client.get(`/sandboxes/${sandboxId}`);
+    return this.client.get(`/${sandboxId}`);
   }
 
   /**
@@ -227,7 +203,7 @@ class SandboxesAPI {
    * @returns {Promise<Object>} Delete confirmation
    */
   async delete(sandboxId) {
-    return this.client.delete(`/sandboxes/${sandboxId}`);
+    return this.client.delete(`/${sandboxId}`);
   }
 
   /**
@@ -236,7 +212,7 @@ class SandboxesAPI {
    * @returns {Promise<Object>} Sandbox details
    */
   async start(sandboxId) {
-    return this.client.post(`/sandboxes/${sandboxId}/start`);
+    return this.client.post(`/${sandboxId}/start`);
   }
 
   /**
@@ -245,7 +221,7 @@ class SandboxesAPI {
    * @returns {Promise<Object>} Sandbox details
    */
   async stop(sandboxId) {
-    return this.client.post(`/sandboxes/${sandboxId}/stop`);
+    return this.client.post(`/${sandboxId}/stop`);
   }
 
   /**
@@ -254,7 +230,7 @@ class SandboxesAPI {
    * @returns {Promise<Object>} Sandbox details
    */
   async restart(sandboxId) {
-    return this.client.post(`/sandboxes/${sandboxId}/restart`);
+    return this.client.post(`/${sandboxId}/restart`);
   }
 
   /**
@@ -263,7 +239,7 @@ class SandboxesAPI {
    * @returns {Promise<Object>} New token details
    */
   async regenerateToken(sandboxId) {
-    return this.client.post(`/sandboxes/${sandboxId}/regenerate-token`);
+    return this.client.post(`/${sandboxId}/regenerate-token`);
   }
 
   /**
@@ -272,7 +248,7 @@ class SandboxesAPI {
    * @returns {Promise<Object>} Metrics data
    */
   async metrics(sandboxId) {
-    return this.client.get(`/sandboxes/${sandboxId}/metrics`);
+    return this.client.get(`/${sandboxId}/metrics`);
   }
 }
 

@@ -1,8 +1,8 @@
 /**
- * Advanced usage examples for buildcore
+ * Advanced usage examples for agent-sandbox
  */
 
-import { SandboxClient } from 'buildcore';
+import { SandboxClient } from 'agent-sandbox';
 
 const sandbox = new SandboxClient({
   baseURL: 'https://sandbox.oblien.com:55872',

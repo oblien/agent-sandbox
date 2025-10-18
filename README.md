@@ -1,13 +1,13 @@
-# @oblien/sandbox-sdk
+# agent-sandbox
+An isolated, intelligent environment where AI agents can build, run, and manage things
+clean, modular SDK for interacting with the Oblien Sandbox API. This SDK provides a simple and intuitive interface for managing sandboxes, files, git repositories, snapshots, and more.
 
-A clean, modular SDK for interacting with the Oblien Sandbox API. This SDK provides a simple and intuitive interface for managing sandboxes, files, git repositories, snapshots, and more.
-
-📚 **[Full Documentation](https://oblien.com/docs/sandbox)**
+📚 **[Full Documentation](https://oblien.com/docs/agent-sandbox)**
 
 ## Installation
 
 ```bash
-npm install @oblien/sandbox-sdk
+npm install agent-sandbox
 ```
 
 ## Quick Start
@@ -15,7 +15,7 @@ npm install @oblien/sandbox-sdk
 ### The Modern Way (Recommended)
 
 ```javascript
-import { OblienClient } from '@oblien/sandbox-sdk';
+import { OblienClient } from 'agent-sandbox';
 
 // 1. Initialize client
 const client = new OblienClient({
@@ -51,7 +51,7 @@ await sandbox.files.list({ dirPath: '/opt/app' });
 ### Manual Setup (if you already have a token)
 
 ```javascript
-import { SandboxClient } from '@oblien/sandbox-sdk';
+import { SandboxClient } from 'agent-sandbox';
 
 const sandbox = new SandboxClient({
   baseURL: 'https://sandbox-abc123.oblien.com:55872',
@@ -81,7 +81,7 @@ const sandbox = new SandboxClient({
 Main client for authenticating and managing sandboxes.
 
 ```javascript
-import { OblienClient } from '@oblien/sandbox-sdk';
+import { OblienClient } from 'agent-sandbox';
 
 const client = new OblienClient({
   clientId: 'your_client_id',
@@ -409,7 +409,7 @@ try {
 This SDK includes full TypeScript type definitions:
 
 ```typescript
-import { SandboxClient, FileListOptions, GitCloneOptions } from '@oblien/sandbox-sdk';
+import { SandboxClient, FileListOptions, GitCloneOptions } from 'agent-sandbox';
 
 const sandbox = new SandboxClient({
   baseURL: 'https://sandbox.oblien.com:55872',

@@ -1,11 +1,11 @@
 # Quick Start Guide
 
-📚 **[Full Documentation](https://oblien.com/docs/sandbox)**
+📚 **[Full Documentation](https://oblien.com/docs/agent-sandbox)**
 
 ## Installation
 
 ```bash
-npm install buildcore
+npm install agent-sandbox
 ```
 
 ## Basic Setup
@@ -13,7 +13,7 @@ npm install buildcore
 ### Modern Way (Recommended)
 
 ```javascript
-import { OblienClient } from 'buildcore';
+import { OblienClient } from 'agent-sandbox';
 
 const client = new OblienClient({
   clientId: process.env.OBLIEN_CLIENT_ID,

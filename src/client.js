@@ -11,11 +11,11 @@ import { WebSocketAPI } from './api/websocket.js';
  * This client is used to interact with an individual sandbox after it has been created.
  * The token is obtained when creating a sandbox via OblienClient.
  * 
- * Documentation: https://oblien.com/docs/sandbox
+ * Full documentation: https://oblien.com/docs/agent-sandbox
  * 
  * @example
  * ```javascript
- * import { SandboxClient } from 'buildcore';
+ * import { SandboxClient } from 'agent-sandbox';
  * 
  * // Token obtained from sandbox creation
  * const sandbox = new SandboxClient({

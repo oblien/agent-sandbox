@@ -1,12 +1,12 @@
 /**
- * Modern, clean usage patterns for buildcore
+ * Modern, clean usage patterns for agent-sandbox
  * 
- * Documentation: https://oblien.com/docs/sandbox
+ * Documentation: https://oblien.com/agent-sandbox
  * 
  * This example shows the cleanest, most modern way to use the SDK.
  */
 
-import { OblienClient } from 'buildcore';
+import { OblienClient } from 'agent-sandbox';
 
 async function modernExample() {
   console.log('=== Modern SDK Usage ===\n');

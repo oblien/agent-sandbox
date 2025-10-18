@@ -1,7 +1,7 @@
 {
-  "name": "buildcore",
-  "version": "1.0.0",
-  "description": "Clean, modular SDK for interacting with Oblien Sandbox API. Full documentation at https://oblien.com/docs/sandbox",
+  "name": "agent-sandbox",
+  "version": "1.0.1",
+  "description": "An isolated, intelligent environment where AI agents can build, run, and manage things. Full documentation at https://oblien.com/docs/agent-sandbox",
   "main": "src/index.js",
   "type": "module",
   "types": "index.d.ts",
@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "sandbox",
+    "agent-sandbox",
     "api",
     "sdk",
     "oblien",
@@ -22,11 +22,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:oblien/buildcore.git"
+    "url": "git@github.com:oblien/agent-sandbox.git"
   },
-  "homepage": "https://oblien.com/docs/buildcore",
+  "homepage": "https://oblien.com/agent-sandbox",
   "bugs": {
-    "url": "https://github.com/oblien/buildcore/issues"
+    "url": "https://github.com/oblien/agent-sandbox/issues"
   },
   "dependencies": {},
   "devDependencies": {},

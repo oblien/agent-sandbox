@@ -1,5 +1,5 @@
 /**
- * TypeScript type definitions for buildcore
+ * TypeScript type definitions for agent-sandbox
  * 
  * Documentation: https://oblien.com/docs/sandbox
  */

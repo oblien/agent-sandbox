@@ -1,11 +1,11 @@
 /**
- * buildcore
+ * agent-sandbox
  * 
- * A clean, modular SDK for interacting with the Oblien Sandbox API
+ * An isolated, intelligent environment where AI agents can build, run, and manage things
  * 
- * Documentation: https://oblien.com/docs/sandbox
+ * Full documentation: https://oblien.com/docs/agent-sandbox
  * 
- * @module buildcore
+ * @module agent-sandbox
  */
 
 export { OblienClient } from './auth.js';

@@ -1,7 +1,7 @@
 /**
- * Basic usage examples for buildcore
+ * Basic usage examples for agent-sandbox
  * 
- * Documentation: https://oblien.com/docs/sandbox
+ * Documentation: https://oblien.com/agent-sandbox
  * 
  * Prerequisites:
  * - Set OBLIEN_CLIENT_ID environment variable
@@ -9,7 +9,7 @@
  * - Optionally set SANDBOX_ID to connect to existing sandbox
  */
 
-import { OblienClient } from 'buildcore';
+import { OblienClient } from 'agent-sandbox';
 
 // Initialize Oblien client
 const client = new OblienClient({
