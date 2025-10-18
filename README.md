@@ -86,7 +86,6 @@ import { OblienClient } from 'agent-sandbox';
 const client = new OblienClient({
   clientId: 'your_client_id',
   clientSecret: 'your_client_secret',
-  apiURL: 'https://api.oblien.com' // Optional, defaults to production
 });
 ```
 
@@ -95,7 +94,6 @@ const client = new OblienClient({
 ```javascript
 const sandbox = await client.sandboxes.create({
   name: 'my-sandbox',
-  region: 'us-east-1',  // Optional: us-east-1, eu-west-1, etc.
   template: 'node-20'   // Optional: template to use
 });
 

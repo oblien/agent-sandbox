@@ -1,6 +1,6 @@
 {
   "name": "agent-sandbox",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An isolated, intelligent environment where AI agents can build, run, and manage things. Full documentation at https://oblien.com/docs/agent-sandbox",
   "main": "src/index.js",
   "type": "module",
@@ -24,7 +24,7 @@
     "type": "git",
     "url": "git@github.com:oblien/agent-sandbox.git"
   },
-  "homepage": "https://oblien.com/agent-sandbox",
+  "homepage": "https://oblien.com/docs/agent-sandbox",
   "bugs": {
     "url": "https://github.com/oblien/agent-sandbox/issues"
   },
