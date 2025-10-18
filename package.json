@@ -1,0 +1,42 @@
+{
+  "name": "buildcore",
+  "version": "1.0.0",
+  "description": "Clean, modular SDK for interacting with Oblien Sandbox API. Full documentation at https://oblien.com/docs/sandbox",
+  "main": "src/index.js",
+  "type": "module",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sandbox",
+    "api",
+    "sdk",
+    "oblien",
+    "development-environment",
+    "cloud-sandbox",
+    "remote-development",
+    "containers"
+  ],
+  "author": "Oblien",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:oblien/buildcore.git"
+  },
+  "homepage": "https://oblien.com/docs/buildcore",
+  "bugs": {
+    "url": "https://github.com/oblien/buildcore/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "src/",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
+  ]
+}

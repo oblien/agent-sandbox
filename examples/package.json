@@ -1,0 +1,16 @@
+{
+  "name": "buildcore-examples",
+  "version": "1.0.0",
+  "description": "Examples for buildcore",
+  "type": "module",
+  "scripts": {
+    "modern": "node modern-usage.js",
+    "complete": "node complete-workflow.js",
+    "basic": "node basic.js",
+    "advanced": "node advanced.js"
+  },
+  "dependencies": {
+    "buildcore": "file:.."
+  }
+}
+
