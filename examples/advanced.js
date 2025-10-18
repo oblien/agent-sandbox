@@ -5,8 +5,7 @@
 import { SandboxClient } from 'agent-sandbox';
 
 const sandbox = new SandboxClient({
-  baseURL: 'https://sandbox.obliencom',
-  token: process.env.SANDBOX_TOKEN
+  token: 'token here'
 });
 
 /**

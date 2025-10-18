@@ -19,7 +19,7 @@ import { WebSocketAPI } from './api/websocket.js';
  * 
  * // Token obtained from sandbox creation
  * const sandbox = new SandboxClient({
- *   baseURL: 'https://sandbox-abc123.obliencom',
+ *   baseURL: 'https://sandbox-abc123.oblien.com',
  *   token: 'sandbox_token_here'
  * });
  * 

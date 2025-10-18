@@ -26,11 +26,11 @@ const client = new OblienClient({
 // 2. Create sandbox - returns ready-to-use client!
 const sandbox = await client.createSandbox({
   name: 'my-dev-sandbox',
-  region: 'us-east-1'
 });
 
 // 3. Use it immediately - that's it!
 await sandbox.files.list({ dirPath: '/opt/app' });
+
 await sandbox.files.create({
   fullPath: '/opt/app/index.js',
   content: 'console.log("Hello World");'
@@ -54,7 +54,6 @@ await sandbox.files.list({ dirPath: '/opt/app' });
 import { SandboxClient } from 'agent-sandbox';
 
 const sandbox = new SandboxClient({
-  baseURL: 'https://sandbox-abc123.obliencom',
   token: 'your_sandbox_token'
 });
 ```
@@ -101,7 +100,7 @@ const sandbox = await client.sandboxes.create({
 // {
 //   id: 'sandbox_abc123',
 //   token: 'sandbox_token_xyz',
-//   url: 'https://sandbox-abc123.obliencom',
+//   url: 'https://sandbox-abc123.oblien.com',
 //   name: 'my-sandbox',
 //   status: 'active'
 // }
@@ -410,8 +409,7 @@ This SDK includes full TypeScript type definitions:
 import { SandboxClient, FileListOptions, GitCloneOptions } from 'agent-sandbox';
 
 const sandbox = new SandboxClient({
-  baseURL: 'https://sandbox.obliencom',
-  token: process.env.SANDBOX_TOKEN!
+  token: 'token here'
 });
 
 const options: FileListOptions = {
