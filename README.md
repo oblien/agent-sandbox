@@ -54,7 +54,7 @@ await sandbox.files.list({ dirPath: '/opt/app' });
 import { SandboxClient } from 'agent-sandbox';
 
 const sandbox = new SandboxClient({
-  baseURL: 'https://sandbox-abc123.oblien.com:55872',
+  baseURL: 'https://sandbox-abc123.obliencom',
   token: 'your_sandbox_token'
 });
 ```
@@ -101,7 +101,7 @@ const sandbox = await client.sandboxes.create({
 // {
 //   id: 'sandbox_abc123',
 //   token: 'sandbox_token_xyz',
-//   url: 'https://sandbox-abc123.oblien.com:55872',
+//   url: 'https://sandbox-abc123.obliencom',
 //   name: 'my-sandbox',
 //   status: 'active'
 // }
@@ -410,7 +410,7 @@ This SDK includes full TypeScript type definitions:
 import { SandboxClient, FileListOptions, GitCloneOptions } from 'agent-sandbox';
 
 const sandbox = new SandboxClient({
-  baseURL: 'https://sandbox.oblien.com:55872',
+  baseURL: 'https://sandbox.obliencom',
   token: process.env.SANDBOX_TOKEN!
 });
 

@@ -174,7 +174,7 @@ import { SandboxClient } from 'agent-sandbox';
 
 // 1. Initialize client with config
 const sandbox = new SandboxClient({
-  baseURL: 'https://sandbox.oblien.com:55872',
+  baseURL: 'https://sandbox.obliencom',
   token: process.env.SANDBOX_TOKEN
 });
 
