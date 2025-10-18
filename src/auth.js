@@ -74,7 +74,7 @@ export class OblienClient {
    */
   async createSandbox(options = {}) {
     const sandboxInfo = await this.sandboxes.create(options);
-    
+    console.log('sandboxInfo', sandboxInfo);
     return new SandboxClient({
       baseURL: sandboxInfo.url,
       token: sandboxInfo.token,
@@ -97,12 +97,14 @@ export class OblienClient {
    */
   async sandbox(sandboxId) {
     const sandboxInfo = await this.sandboxes.get(sandboxId);
-    
+    if(!sandboxInfo.success) {
+      throw new Error(sandboxInfo.error);
+    }
     return new SandboxClient({
-      baseURL: sandboxInfo.url,
-      token: sandboxInfo.token,
-      sandboxId: sandboxInfo.id,
-      sandboxName: sandboxInfo.name
+      baseURL: sandboxInfo.sandbox.url,
+      token: sandboxInfo.sandbox.token,
+      sandboxId: sandboxInfo.sandbox.id,
+      sandboxName: sandboxInfo.sandbox.name
     });
   }
 

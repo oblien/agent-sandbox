@@ -3,8 +3,8 @@ import { GitAPI } from './api/git.js';
 import { SearchAPI } from './api/search.js';
 import { TerminalAPI } from './api/terminal.js';
 import { SnapshotsAPI } from './api/snapshots.js';
-import { WebSocketAPI } from './api/websocket.js';
 import { BrowserAPI } from './api/browser.js';
+import { WebSocketConnection } from './websocket/connection.js';
 import { TerminalManager } from './managers/terminal.js';
 import { WatcherManager } from './managers/watcher.js';
 
@@ -60,10 +60,39 @@ export class SandboxClient {
       throw new Error('token is required');
     }
 
-    const { baseURL, token, sandboxId, sandboxName } = config;
+    const { baseURL, token, sandboxId, sandboxName, oblienClient } = config;
     
+    this.baseURL = baseURL;
+    this.token = token;
     this.sandboxId = sandboxId;
     this.sandboxName = sandboxName;
+    this.oblienClient = oblienClient;
+
+    /**
+     * Shared WebSocket connection (ONE connection for everything)
+     * @type {WebSocketConnection}
+     * @private
+     */
+    this._wsConnection = new WebSocketConnection({
+      baseURL,
+      token,
+      sandboxId,
+      onStatusCheck: async () => {
+        // Check if sandbox is active before connecting
+        if (this.oblienClient && this.sandboxId) {
+          try {
+            const result = await this.oblienClient.sandboxes.get(this.sandboxId);
+            if (!result.success) return false;
+            const status = result.sandbox?.status;
+            return status === 'active' || status === 'running';
+          } catch (error) {
+            console.warn('[Sandbox] Status check failed:', error.message);
+            return true; // Allow connection attempt if check fails
+          }
+        }
+        return true;
+      }
+    });
 
     /**
      * Files API
@@ -84,10 +113,10 @@ export class SandboxClient {
     this.search = new SearchAPI(baseURL, token);
 
     /**
-     * Terminal API
+     * Terminal API (static/REST endpoints)
      * @type {TerminalAPI}
      */
-    this.terminal = new TerminalAPI(baseURL, token);
+    this.staticTerminal = new TerminalAPI(baseURL, token);
 
     /**
      * Snapshots API
@@ -96,28 +125,22 @@ export class SandboxClient {
     this.snapshots = new SnapshotsAPI(baseURL, token);
 
     /**
-     * WebSocket API
-     * @type {WebSocketAPI}
-     */
-    this.websocket = new WebSocketAPI(baseURL, token);
-
-    /**
      * Browser API
      * @type {BrowserAPI}
      */
     this.browser = new BrowserAPI(baseURL, token);
 
     /**
-     * Terminal Manager - Direct terminal access
+     * Terminal Manager - Real-time terminal via shared WebSocket
      * @type {TerminalManager}
      */
-    this.terminal = new TerminalManager(baseURL, token);
+    this.terminal = new TerminalManager(this._wsConnection);
 
     /**
-     * File Watcher - Direct watcher access
+     * File Watcher - Real-time file watching via shared WebSocket
      * @type {WatcherManager}
      */
-    this.watcher = new WatcherManager(baseURL, token);
+    this.watcher = new WatcherManager(this._wsConnection);
   }
 
   /**
@@ -132,6 +155,29 @@ export class SandboxClient {
     } catch (error) {
       return false;
     }
+  }
+
+  /**
+   * Connect to WebSocket (terminal/watcher auto-connect when used)
+   * @returns {Promise<void>}
+   */
+  async connect() {
+    await this._wsConnection.connect();
+  }
+
+  /**
+   * Disconnect from WebSocket
+   */
+  disconnect() {
+    this._wsConnection.disconnect();
+  }
+
+  /**
+   * Check if WebSocket is connected
+   * @returns {boolean}
+   */
+  get connected() {
+    return this._wsConnection.connected;
   }
 }
 

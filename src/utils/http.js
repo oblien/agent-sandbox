@@ -21,16 +21,17 @@ export async function request(url, options = {}) {
 
     const data = await response.json();
 
-    if (!response.ok) {
-      throw new Error(data.error || data.message || `HTTP ${response.status}: ${response.statusText}`);
+    if (!response.ok || !data.success) {
+      return data
     }
 
     return data;
   } catch (error) {
-    if (error.name === 'TypeError' && error.message.includes('fetch')) {
-      throw new Error(`Network error: Unable to connect to ${url}`);
+    
+    return {
+      success: false,
+      error: error.message || 'An unexpected error occurred',
     }
-    throw error;
   }
 }
 
