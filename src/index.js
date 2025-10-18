@@ -16,4 +16,8 @@ export { SearchAPI } from './api/search.js';
 export { TerminalAPI } from './api/terminal.js';
 export { SnapshotsAPI } from './api/snapshots.js';
 export { WebSocketAPI } from './api/websocket.js';
+export { BrowserAPI } from './api/browser.js';
+export { TerminalManager, Terminal } from './managers/terminal.js';
+export { WatcherManager } from './managers/watcher.js';
+export { WebSocketClient } from './websocket/client.js';
 

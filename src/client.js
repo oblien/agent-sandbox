@@ -4,6 +4,9 @@ import { SearchAPI } from './api/search.js';
 import { TerminalAPI } from './api/terminal.js';
 import { SnapshotsAPI } from './api/snapshots.js';
 import { WebSocketAPI } from './api/websocket.js';
+import { BrowserAPI } from './api/browser.js';
+import { TerminalManager } from './managers/terminal.js';
+import { WatcherManager } from './managers/watcher.js';
 
 /**
  * Sandbox API Client - Interact with a specific sandbox instance
@@ -97,6 +100,24 @@ export class SandboxClient {
      * @type {WebSocketAPI}
      */
     this.websocket = new WebSocketAPI(baseURL, token);
+
+    /**
+     * Browser API
+     * @type {BrowserAPI}
+     */
+    this.browser = new BrowserAPI(baseURL, token);
+
+    /**
+     * Terminal Manager - Direct terminal access
+     * @type {TerminalManager}
+     */
+    this.terminal = new TerminalManager(baseURL, token);
+
+    /**
+     * File Watcher - Direct watcher access
+     * @type {WatcherManager}
+     */
+    this.watcher = new WatcherManager(baseURL, token);
   }
 
   /**

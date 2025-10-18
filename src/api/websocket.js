@@ -1,45 +1,135 @@
 import { BaseAPI } from './base.js';
+import { WebSocketClient } from '../websocket/client.js';
+import { TerminalManager } from '../websocket/terminal.js';
+import { FileWatcher } from '../websocket/watcher.js';
 
 /**
- * WebSocket API - Handle WebSocket connections
+ * WebSocket API - Real-time communication with sandbox
+ * Handles terminal operations and file watching
  */
 export class WebSocketAPI extends BaseAPI {
-  /**
-   * Get all active WebSocket connections
-   * @returns {Promise<Object>} Active connections
-   */
-  async getConnections() {
-    return this.get('/ws/connections');
+  constructor(baseURL, token) {
+    super(baseURL, token);
+    this._wsClient = null;
+    this._terminal = null;
+    this._watcher = null;
   }
 
   /**
-   * Get connection status
-   * @param {Object} options - Status options
-   * @param {string} options.token - Connection token
-   * @returns {Promise<Object>} Connection status
+   * Create WebSocket connection
+   * @param {Object} [options] - Connection options
+   * @param {boolean} [options.binary] - Enable binary mode
+   * @param {boolean} [options.silent] - Silent mode
+   * @returns {Promise<WebSocketConnection>} WebSocket connection
+   * 
+   * @example
+   * ```javascript
+   * const ws = await sandbox.websocket.connect();
+   * 
+   * // Create terminal
+   * const terminal = await ws.terminal.create({
+   *   cols: 80,
+   *   rows: 24,
+   *   onData: (data) => console.log(data),
+   *   onExit: (code) => console.log('Exited:', code)
+   * });
+   * 
+   * // Write to terminal
+   * terminal.write('ls -la\n');
+   * 
+   * // Start file watcher
+   * ws.watcher.start({
+   *   onChange: (path) => console.log('Changed:', path)
+   * });
+   * ```
    */
-  async getConnectionStatus(options) {
-    return this.get('/ws/connection', options);
+  async connect(options = {}) {
+    if (this._wsClient && this._wsClient.isConnected) {
+      return this;
+    }
+
+    this._wsClient = new WebSocketClient(this.baseURL, this.token);
+    this._terminal = new TerminalManager(this._wsClient);
+    this._watcher = new FileWatcher(this._wsClient);
+
+    await this._wsClient.connect(options);
+
+    return this;
   }
 
   /**
-   * Connect to WebSocket
-   * @param {Object} options - Connect options
-   * @param {string} options.token - Connection token
-   * @returns {Promise<Object>} Connect result
+   * Disconnect WebSocket
    */
-  async connect(options) {
-    return this.post('/ws/connect', options);
+  disconnect() {
+    if (this._wsClient) {
+      this._wsClient.disconnect();
+      this._wsClient = null;
+      this._terminal = null;
+      this._watcher = null;
+    }
   }
 
   /**
-   * Disconnect from WebSocket
-   * @param {Object} options - Disconnect options
-   * @param {string} options.token - Connection token
-   * @returns {Promise<Object>} Disconnect result
+   * Get terminal manager
+   * @returns {TerminalManager} Terminal manager
    */
-  async disconnect(options) {
-    return this.post('/ws/disconnect', options);
+  get terminal() {
+    if (!this._terminal) {
+      throw new Error('WebSocket not connected. Call connect() first.');
+    }
+    return this._terminal;
+  }
+
+  /**
+   * Get file watcher
+   * @returns {FileWatcher} File watcher
+   */
+  get watcher() {
+    if (!this._watcher) {
+      throw new Error('WebSocket not connected. Call connect() first.');
+    }
+    return this._watcher;
+  }
+
+  /**
+   * Get raw WebSocket client
+   * @returns {WebSocketClient} WebSocket client
+   */
+  get client() {
+    return this._wsClient;
+  }
+
+  /**
+   * Check if connected
+   * @returns {boolean} Connection status
+   */
+  get isConnected() {
+    return this._wsClient?.isConnected || false;
+  }
+
+  /**
+   * Register event handler
+   * @param {string} event - Event name
+   * @param {Function} handler - Event handler
+   */
+  on(event, handler) {
+    if (!this._wsClient) {
+      throw new Error('WebSocket not connected. Call connect() first.');
+    }
+    this._wsClient.on(event, handler);
+  }
+
+  /**
+   * Remove event handler
+   * @param {string} event - Event name
+   * @param {Function} handler - Event handler
+   */
+  off(event, handler) {
+    if (!this._wsClient) {
+      throw new Error('WebSocket not connected. Call connect() first.');
+    }
+    this._wsClient.off(event, handler);
   }
 }
+
 

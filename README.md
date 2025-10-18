@@ -67,6 +67,7 @@ const sandbox = new SandboxClient({
 - 📂 **Git API** - Full git operations (clone, commit, push, pull, branches)
 - 📸 **Snapshots API** - Create and manage checkpoints and archives
 - 💻 **Terminal API** - Execute terminal commands
+- 🌐 **Browser API** - Browser automation (screenshots, page content, network monitoring)
 - 🔌 **WebSocket API** - Real-time connection management
 - 💪 **TypeScript Support** - Full TypeScript type definitions
 - 🧩 **Modular Design** - Clean, readable, and maintainable code structure
@@ -366,25 +367,141 @@ await sandbox.snapshots.deleteArchive('my-archive-v1');
 await sandbox.snapshots.cleanupArchives();
 ```
 
-### WebSocket API
+### Terminal (Real-time via WebSocket)
+
+Direct terminal access with automatic WebSocket management:
 
 ```javascript
-// Get all active connections
-await sandbox.websocket.getConnections();
-
-// Connect to WebSocket
-await sandbox.websocket.connect({
-  token: 'connection-token'
+// Create terminal - WebSocket auto-connects!
+const terminal = await sandbox.terminal.create({
+  cols: 120,
+  rows: 30,
+  cwd: '/opt/app',
+  onData: (data) => {
+    console.log(data); // Real-time output
+  },
+  onExit: (code) => {
+    console.log('Exit code:', code);
+  }
 });
 
-// Get connection status
-await sandbox.websocket.getConnectionStatus({
-  token: 'connection-token'
+// Execute commands
+terminal.write('npm install\n');
+terminal.write('npm run dev\n');
+
+// Get terminal output history
+const state = await terminal.getState({
+  newOnly: false,  // Get all output or just new
+  maxLines: 100
 });
+const output = Buffer.from(state, 'base64').toString('utf-8');
+
+// Resize terminal
+await terminal.resize(150, 40);
+
+// Close terminal
+await terminal.close();
+
+// List all terminals
+const terminals = await sandbox.terminal.list();
+```
+
+### File Watcher (Real-time via WebSocket)
+
+Direct watcher access with automatic WebSocket management:
+
+```javascript
+// Start watching - WebSocket auto-connects!
+await sandbox.watcher.start({
+  ignorePatterns: ['node_modules', '.git', 'dist'],
+  onChange: (path) => {
+    console.log('📝 File changed:', path);
+  },
+  onAdd: (path) => {
+    console.log('➕ File added:', path);
+  },
+  onUnlink: (path) => {
+    console.log('➖ File deleted:', path);
+  }
+});
+
+// Watcher runs in background...
+
+// Stop watching
+sandbox.watcher.stop();
+```
+
+### WebSocket API (Low-level)
+
+For advanced WebSocket usage:
+
+```javascript
+const ws = await sandbox.websocket.connect({ binary: true });
+
+// Access terminal manager
+const terminal = await ws.terminal.create({...});
+
+// Access file watcher
+ws.watcher.start({...});
+
+// Listen to custom events
+ws.on('error', (error) => console.error(error));
+ws.on('close', () => console.log('Closed'));
 
 // Disconnect
-await sandbox.websocket.disconnect({
-  token: 'connection-token'
+ws.disconnect();
+```
+
+### Browser API
+
+```javascript
+// Get page content
+await sandbox.browser.getPageContent({
+  url: 'https://example.com',
+  waitFor: 1000,
+  selector: '.content',
+  waitForFullLoad: true
+});
+
+// Or use path for container URLs
+await sandbox.browser.getPageContent({
+  path: '/dashboard',  // Uses container's internal URL
+  waitFor: 1000
+});
+
+// Take screenshot
+await sandbox.browser.screenshot({
+  url: 'https://example.com',
+  width: 1920,
+  height: 1080,
+  fullPage: true,
+  format: 'png',
+  save: true
+});
+
+// Monitor network requests
+await sandbox.browser.monitorRequests({
+  url: 'https://example.com',
+  duration: 5000,
+  filterTypes: ['fetch', 'xhr']
+});
+
+// Get console logs
+await sandbox.browser.getConsoleLogs({
+  url: 'https://example.com',
+  waitFor: 2000,
+  includeNetworkErrors: true
+});
+
+// Get device presets
+const presets = await sandbox.browser.getDevicePresets();
+
+// Get browser status
+const status = await sandbox.browser.getStatus();
+
+// Clean screenshots
+await sandbox.browser.cleanScreenshots({
+  url: 'https://example.com'
 });
 ```
 

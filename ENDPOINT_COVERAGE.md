@@ -120,12 +120,28 @@ These are nested under `/snapshots` via `router.use('/', snapshotArchiveRoutes)`
 
 ---
 
+## Browser API (`/browser/*`)
+
+| Server Endpoint | Method | SDK Method | Status |
+|----------------|--------|------------|--------|
+| `/browser/page-content` | POST | `sandbox.browser.getPageContent()` | ✅ |
+| `/browser/monitor-requests` | POST | `sandbox.browser.monitorRequests()` | ✅ |
+| `/browser/screenshot` | POST | `sandbox.browser.screenshot()` | ✅ |
+| `/browser/clean-screenshots` | POST | `sandbox.browser.cleanScreenshots()` | ✅ |
+| `/browser/console-logs` | POST | `sandbox.browser.getConsoleLogs()` | ✅ |
+| `/browser/device-presets` | GET | `sandbox.browser.getDevicePresets()` | ✅ |
+| `/browser/status` | GET | `sandbox.browser.getStatus()` | ✅ |
+
+**Source**: `/home/deploy/routes/browserRoutes.js`
+
+---
+
 ## Summary
 
 ### Coverage Statistics
 
-- **Total Server Endpoints**: 55
-- **SDK Methods Implemented**: 55
+- **Total Server Endpoints**: 62
+- **SDK Methods Implemented**: 62
 - **Coverage**: 100% ✅
 
 ### API Modules
@@ -138,6 +154,7 @@ These are nested under `/snapshots` via `router.use('/', snapshotArchiveRoutes)`
 | Terminal | 1 | 1 | ✅ Complete |
 | Snapshots | 13 | 13 | ✅ Complete |
 | WebSocket | 4 | 4 | ✅ Complete |
+| Browser | 7 | 7 | ✅ Complete |
 | **Sandboxes** | N/A | 9 | ✅ New (Account Management) |
 
 ### Additional Features

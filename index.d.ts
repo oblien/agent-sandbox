@@ -167,9 +167,6 @@ export interface SnapshotRestoreOptions {
   override?: boolean;
 }
 
-export interface WebSocketConnectOptions {
-  token: string;
-}
 
 export class FilesAPI {
   list(options: FileListOptions): Promise<any>;
@@ -227,11 +224,142 @@ export class SnapshotsAPI {
   cleanupArchives(options?: any): Promise<any>;
 }
 
-export class WebSocketAPI {
-  getConnections(): Promise<any>;
-  getConnectionStatus(options: WebSocketConnectOptions): Promise<any>;
-  connect(options: WebSocketConnectOptions): Promise<any>;
-  disconnect(options: WebSocketConnectOptions): Promise<any>;
+export interface WebSocketConnectOptions {
+  binary?: boolean;
+  silent?: boolean;
+}
+
+export interface TerminalCreateOptions {
+  terminalId?: number;
+  cols?: number;
+  rows?: number;
+  cwd?: string;
+  command?: string;
+  args?: string[];
+  task?: boolean;
+  force?: boolean;
+  onData?: (data: string) => void;
+  onExit?: (code: number, signal?: string) => void;
+}
+
+export interface TerminalStateOptions {
+  newOnly?: boolean;
+  maxLines?: number;
+  direction?: 'top' | 'bottom';
+}
+
+export interface FileWatcherOptions {
+  ignorePatterns?: string[];
+  onChange?: (path: string) => void;
+  onAdd?: (path: string) => void;
+  onUnlink?: (path: string) => void;
+  onError?: (error: any) => void;
+}
+
+export class Terminal {
+  readonly id: number;
+  write(data: string): void;
+  resize(cols: number, rows: number): Promise<void>;
+  getState(options?: TerminalStateOptions): Promise<string>;
+  onData(callback: (data: string) => void): void;
+  onExit(callback: (code: number, signal?: string) => void): void;
+  close(force?: boolean): Promise<void>;
+}
+
+export class TerminalManager {
+  create(options?: TerminalCreateOptions): Promise<Terminal>;
+  list(): Promise<Array<{ id: number }>>;
+  get(terminalId: number): Terminal | null;
+  close(terminalId: number, force?: boolean): Promise<void>;
+  disconnect(): void;
+}
+
+export class WatcherManager {
+  readonly isWatching: boolean;
+  start(options?: FileWatcherOptions): Promise<void>;
+  stop(): void;
+  on(event: 'add' | 'change' | 'unlink' | 'error', handler: (path: string) => void): void;
+  off(event: 'add' | 'change' | 'unlink' | 'error', handler: (path: string) => void): void;
+  disconnect(): void;
+}
+
+export class WebSocketClient {
+  readonly isConnected: boolean;
+  connect(options?: WebSocketConnectOptions): Promise<void>;
+  disconnect(): void;
+  on(event: string, handler: (...args: any[]) => void): void;
+  off(event: string, handler: (...args: any[]) => void): void;
+  once(event: string, handler: (...args: any[]) => void): void;
+}
+
+export class WebSocketAPI extends BaseAPI {
+  readonly terminal: TerminalManager;
+  readonly watcher: FileWatcher;
+  readonly client: WebSocketClient;
+  readonly isConnected: boolean;
+  
+  connect(options?: WebSocketConnectOptions): Promise<WebSocketAPI>;
+  disconnect(): void;
+  on(event: string, handler: (...args: any[]) => void): void;
+  off(event: string, handler: (...args: any[]) => void): void;
+}
+
+export interface BrowserPageContentOptions {
+  url: string;
+  path?: string;
+  pageUrl?: string;
+  waitFor?: number;
+  selector?: string;
+  extract?: string;
+  waitForFullLoad?: boolean;
+  useProxy?: boolean;
+}
+
+export interface BrowserMonitorOptions {
+  url: string;
+  path?: string;
+  duration?: number;
+  filterTypes?: string[];
+  useProxy?: boolean;
+}
+
+export interface BrowserScreenshotOptions {
+  url: string;
+  path?: string;
+  width?: number;
+  height?: number;
+  deviceType?: string;
+  scale?: number;
+  scrollPosition?: { x: number; y: number };
+  fullPage?: boolean;
+  format?: 'png' | 'jpeg' | 'webp';
+  quality?: number;
+  selector?: string;
+  waitFor?: number;
+  save?: boolean;
+  fullPageOptions?: any;
+  useProxy?: boolean;
+  timeout?: number;
+}
+
+export interface BrowserConsoleLogsOptions {
+  url: string;
+  path?: string;
+  waitFor?: number;
+  selector?: string;
+  includeNetworkErrors?: boolean;
+  flatten?: boolean;
+  useProxy?: boolean;
+}
+
+export class BrowserAPI {
+  getPageContent(options: BrowserPageContentOptions): Promise<any>;
+  monitorRequests(options: BrowserMonitorOptions): Promise<any>;
+  screenshot(options: BrowserScreenshotOptions): Promise<any>;
+  cleanScreenshots(options: { url: string }): Promise<any>;
+  getConsoleLogs(options: BrowserConsoleLogsOptions): Promise<any>;
+  getDevicePresets(): Promise<any>;
+  getStatus(): Promise<any>;
 }
 
 export class SandboxesAPI {
@@ -264,8 +392,10 @@ export class SandboxClient {
   files: FilesAPI;
   git: GitAPI;
   search: SearchAPI;
-  terminal: TerminalAPI;
   snapshots: SnapshotsAPI;
+  browser: BrowserAPI;
+  terminal: TerminalManager;
+  watcher: WatcherManager;
   websocket: WebSocketAPI;
   
   testConnection(): Promise<boolean>;

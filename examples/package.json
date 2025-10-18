@@ -7,7 +7,8 @@
     "modern": "node modern-usage.js",
     "complete": "node complete-workflow.js",
     "basic": "node basic.js",
-    "advanced": "node advanced.js"
+    "advanced": "node advanced.js",
+    "websocket": "node websocket-terminal.js"
   },
   "dependencies": {
     "agent-sandbox": "file:.."
