@@ -180,7 +180,7 @@ export class WebSocketConnection {
         // Wait for connection confirmation
         const connectionTimeout = setTimeout(() => {
           this.isConnecting = false;
-          reject(new Error('Connection timeout - no confirmation received'));
+          resolve({ error: 'Connection timeout - no confirmation received, check sandbox status' });
         }, 10000);
         
         this.once('connected', () => {
@@ -193,7 +193,7 @@ export class WebSocketConnection {
         
       } catch (error) {
         this.isConnecting = false;
-        reject(error);
+        resolve({ error: error.message });
       }
     });
   }
@@ -299,7 +299,7 @@ export class WebSocketConnection {
    */
   async sendRequest(message, expectedTypes = null) {
     if (!this.isConnected) {
-      throw new Error('WebSocket not connected');
+      return { error: 'WebSocket not connected check sandbox status' };
     }
 
     return new Promise((resolve, reject) => {
@@ -316,7 +316,7 @@ export class WebSocketConnection {
       const timeout = setTimeout(() => {
         if (this.pendingRequests.has(requestId)) {
           this.pendingRequests.delete(requestId);
-          reject(new Error('Request timeout'));
+          resolve({ error: 'Request timeout check sandbox status' });
         }
       }, this.requestTimeout);
 
@@ -327,7 +327,7 @@ export class WebSocketConnection {
       } catch (error) {
         clearTimeout(timeout);
         this.pendingRequests.delete(requestId);
-        reject(error);
+        resolve({ error: error.message });
       }
     });
   }
@@ -375,7 +375,7 @@ export class WebSocketConnection {
    */
   send(message) {
     if (!this.isConnected) {
-      throw new Error('WebSocket not connected');
+      return { error: 'WebSocket not connected' };
     }
     this.ws.send(JSON.stringify(message));
   }
@@ -451,7 +451,7 @@ export class WebSocketConnection {
     // Reject all pending requests
     this.pendingRequests.forEach(({ reject, timeout }) => {
       clearTimeout(timeout);
-      reject(new Error('Connection closed'));
+        resolve({ error: 'Connection closed' });
     });
     this.pendingRequests.clear();
     

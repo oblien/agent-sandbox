@@ -75,8 +75,8 @@ export class TerminalManager {
 
     const response = await this.connection.sendRequest(message);
 
-    if (response.type === 'terminal_error') {
-      throw new Error(response.message);
+    if (response.error) {
+      return response
     }
     
     return {
@@ -130,8 +130,8 @@ export class TerminalManager {
 
     const response = await this.connection.sendRequest(message);
 
-    if (response.type === 'terminal_error') {
-      throw new Error(response.message);
+    if (response.error) {
+      return response
     }
 
     // Create interactive terminal instance
@@ -163,8 +163,8 @@ export class TerminalManager {
       action: 'terminal_list'
     });
 
-    if (response.type === 'terminal_error') {
-      throw new Error(response.message);
+    if (response.error) {
+      return response
     }
 
     return response.terminals || [];
@@ -210,8 +210,8 @@ export class TerminalManager {
       force
     });
 
-    if (response.type === 'terminal_error') {
-      throw new Error(response.message);
+    if (response.type === 'terminal_error' || response.error) {
+      return response
     }
     
     if (response.type === 'terminal_closed') {
@@ -305,8 +305,8 @@ export class Terminal {
       rows
     });
 
-    if (response.type === 'terminal_error') {
-      throw new Error(response.message);
+    if (response.type === 'terminal_error' || response.error) {
+      return response
     }
     
     if (response.type === 'terminal_resized') {
@@ -339,12 +339,12 @@ export class Terminal {
       direction: options.direction || 'bottom'
     });
 
-    if (response.type === 'terminal_error') {
-      throw new Error(response.message);
+    if (response.type === 'terminal_error' || response.error) {
+      return response
     }
 
     if (response.type !== 'terminal_state') {
-      throw new Error('Unexpected response type: ' + response.type);
+      return response
     }
 
     return {
@@ -426,8 +426,8 @@ export class Terminal {
       force
     });
 
-    if (response.type === 'terminal_error') {
-      throw new Error(response.message);
+    if (response.type === 'terminal_error' || response.error) {
+      return response
     }
 
     if (response.type === 'terminal_closed') {

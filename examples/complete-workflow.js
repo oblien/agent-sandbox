@@ -147,7 +147,7 @@ async function main() {
     // console.log('✓ Sandbox deleted');
     
   } catch (error) {
-    console.error('\n❌ Error:', error.message);
+    console.error('\n Error:', error.message);
     if (error.stack) {
       console.error('\nStack trace:', error.stack);
     }

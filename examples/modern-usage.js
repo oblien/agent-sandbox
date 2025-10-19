@@ -85,7 +85,7 @@ console.log(greet('World'));
   });
   console.log(files);
 
-  console.log('\n✅ All done!');
+  console.log('\n All done!');
   console.log(`\n💡 Your sandbox: ${sandbox.sandboxId}`);
   console.log('To reconnect later:\n');
   console.log('  const sandbox = await client.sandbox("' + sandbox.sandboxId + '");');
@@ -186,7 +186,7 @@ async function main() {
     // await cleanupExample();
 
   } catch (error) {
-    console.error('\n❌ Error:', error.message);
+    console.error('\n Error:', error.message);
     if (error.stack) {
       console.error('\nStack:', error.stack);
     }

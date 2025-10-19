@@ -10,7 +10,20 @@ export class FilesAPI extends BaseAPI {
    * @param {string} options.dirPath - Directory path to list
    * @param {boolean} [options.recursive] - List recursively
    * @param {Array<string>} [options.ignorePatterns] - Patterns to ignore
+   * @param {boolean} [options.nested] - Return nested directory structure
+   * @param {boolean} [options.light] - Return minimal info (no names, dates)
+   * @param {boolean} [options.flattenResults] - Return flat array instead of nested structure
+   * @param {number} [options.maxDepth] - Maximum recursion depth for nested directories
+   * @param {Array<string>} [options.ignorePatterns] - Patterns to ignore
+   * @param {boolean} [options.useGitignore] - Whether to read and use .gitignore patterns
+   * @param {string} [options.pathFilter] - Only include files/dirs with paths containing this string
+   * @param {number} [options.currentDepth] - Current recursion depth
    * @returns {Promise<Object>} List result
+   * @param {boolean} [options.includeHash] - Include file hash
+   * @param {boolean} [options.includeContent] - Include file content
+   * @param {number} [options.maxContentSize] - Maximum size in bytes for including file content (1MB default)
+   * @param {boolean} [options.enableChunking] - Enable chunking
+   * @param {number} [options.maxChunkSize] - Maximum size in bytes for each chunk
    */
   async list(options) {
     return this.post('/files/list', options);

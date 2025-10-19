@@ -53,16 +53,13 @@ export class SandboxClient {
    * @param {string} [config.sandboxName] - Sandbox name (optional)
    */
   constructor(config) {
-    if (!config.baseURL) {
-      throw new Error('baseURL is required');
-    }
     if (!config.token) {
       throw new Error('token is required');
     }
 
     const { baseURL, token, sandboxId, sandboxName, oblienClient } = config;
     
-    this.baseURL = baseURL;
+    this.baseURL = config.baseURL || 'https://api.oblien.com/sandbox';
     this.token = token;
     this.sandboxId = sandboxId;
     this.sandboxName = sandboxName;

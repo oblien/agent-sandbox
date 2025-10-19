@@ -11,7 +11,7 @@ export interface OblienConfig {
 }
 
 export interface SandboxConfig {
-  baseURL: string;
+  baseURL?: string;
   token: string;
 }
 
@@ -42,6 +42,18 @@ export interface FileListOptions {
   dirPath: string;
   recursive?: boolean;
   ignorePatterns?: string[];
+  nested?: boolean;
+  light?: boolean;
+  flattenResults?: boolean;
+  maxDepth?: number;
+  ignorePatterns?: string[];
+  useGitignore?: boolean;
+  pathFilter?: string;
+  includeHash?: boolean;
+  includeContent?: boolean;
+  maxContentSize?: number;
+  enableChunking?: boolean;
+  maxChunkSize?: number;
 }
 
 export interface FileGetOptions {

@@ -201,7 +201,7 @@ async function main() {
     // await snapshotOperations();
     // await terminalOperations();
 
-    console.log('\n✅ Examples completed!');
+    console.log('\n Examples completed!');
     console.log('\n💡 Tip: Set SANDBOX_ID to reuse this sandbox:');
     console.log(`   export SANDBOX_ID="${sandbox.sandboxId}"`);
 

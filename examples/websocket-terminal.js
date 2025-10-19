@@ -98,7 +98,7 @@ async function fileWatcherExample() {
       console.log(`🗑️  File deleted: ${path}`);
     },
     onError: (error) => {
-      console.error(`❌ Watcher error:`, error);
+      console.error(` Watcher error:`, error);
     }
   });
   console.log('✓ File watcher started\n');
@@ -248,7 +248,7 @@ async function main() {
     // await interactiveTerminalExample();
 
   } catch (error) {
-    console.error('\n❌ Error:', error.message);
+    console.error('\n Error:', error.message);
     console.error(error.stack);
   }
 }

@@ -4,7 +4,7 @@ This document maps all server endpoints from `/home/deploy/manager` to SDK metho
 
 📚 **[Full Documentation](https://oblien.com/docs/sandbox)**
 
-## ✅ Complete Coverage
+##  Complete Coverage
 
 All endpoints from the Oblien Sandbox Manager are fully covered by the SDK.
 
@@ -14,16 +14,16 @@ All endpoints from the Oblien Sandbox Manager are fully covered by the SDK.
 
 | Server Endpoint | Method | SDK Method | Status |
 |----------------|--------|------------|--------|
-| `/files/list` | POST | `sandbox.files.list()` | ✅ |
-| `/files/get` | POST | `sandbox.files.get()` | ✅ |
-| `/files/create` | POST | `sandbox.files.create()` | ✅ |
-| `/files/delete` | POST | `sandbox.files.delete()` | ✅ |
-| `/files/rename` | POST | `sandbox.files.rename()` | ✅ |
-| `/files/upload` | POST | `sandbox.files.upload()` | ✅ |
-| `/files/download` | POST | `sandbox.files.download()` | ✅ |
-| `/files/exists` | POST | `sandbox.files.exists()` | ✅ |
-| `/files/edit` | POST | `sandbox.files.edit()` | ✅ |
-| `/files/merge` | POST | `sandbox.files.merge()` | ✅ |
+| `/files/list` | POST | `sandbox.files.list()` |  |
+| `/files/get` | POST | `sandbox.files.get()` |  |
+| `/files/create` | POST | `sandbox.files.create()` |  |
+| `/files/delete` | POST | `sandbox.files.delete()` |  |
+| `/files/rename` | POST | `sandbox.files.rename()` |  |
+| `/files/upload` | POST | `sandbox.files.upload()` |  |
+| `/files/download` | POST | `sandbox.files.download()` |  |
+| `/files/exists` | POST | `sandbox.files.exists()` |  |
+| `/files/edit` | POST | `sandbox.files.edit()` |  |
+| `/files/merge` | POST | `sandbox.files.merge()` |  |
 
 **Source**: `/home/deploy/manager/src/routes/fileRoutes.js`
 
@@ -33,21 +33,21 @@ All endpoints from the Oblien Sandbox Manager are fully covered by the SDK.
 
 | Server Endpoint | Method | SDK Method | Status |
 |----------------|--------|------------|--------|
-| `/git/keys` | GET | `sandbox.git.listKeys()` | ✅ |
-| `/git/config/user` | POST | `sandbox.git.configUser()` | ✅ |
-| `/git/check` | POST | `sandbox.git.check()` | ✅ |
-| `/git/clone` | POST | `sandbox.git.clone()` | ✅ |
-| `/git/pull` | POST | `sandbox.git.pull()` | ✅ |
-| `/git/push` | POST | `sandbox.git.push()` | ✅ |
-| `/git/status` | POST | `sandbox.git.status()` | ✅ |
-| `/git/branch/current` | POST | `sandbox.git.getCurrentBranch()` | ✅ |
-| `/git/branch/list` | POST | `sandbox.git.listBranches()` | ✅ |
-| `/git/branch/create` | POST | `sandbox.git.createBranch()` | ✅ |
-| `/git/branch/checkout` | POST | `sandbox.git.checkoutBranch()` | ✅ |
-| `/git/add` | POST | `sandbox.git.add()` | ✅ |
-| `/git/commit` | POST | `sandbox.git.commit()` | ✅ |
-| `/git/init` | POST | `sandbox.git.init()` | ✅ |
-| `/git/history` | POST | `sandbox.git.history()` | ✅ |
+| `/git/keys` | GET | `sandbox.git.listKeys()` |  |
+| `/git/config/user` | POST | `sandbox.git.configUser()` |  |
+| `/git/check` | POST | `sandbox.git.check()` |  |
+| `/git/clone` | POST | `sandbox.git.clone()` |  |
+| `/git/pull` | POST | `sandbox.git.pull()` |  |
+| `/git/push` | POST | `sandbox.git.push()` |  |
+| `/git/status` | POST | `sandbox.git.status()` |  |
+| `/git/branch/current` | POST | `sandbox.git.getCurrentBranch()` |  |
+| `/git/branch/list` | POST | `sandbox.git.listBranches()` |  |
+| `/git/branch/create` | POST | `sandbox.git.createBranch()` |  |
+| `/git/branch/checkout` | POST | `sandbox.git.checkoutBranch()` |  |
+| `/git/add` | POST | `sandbox.git.add()` |  |
+| `/git/commit` | POST | `sandbox.git.commit()` |  |
+| `/git/init` | POST | `sandbox.git.init()` |  |
+| `/git/history` | POST | `sandbox.git.history()` |  |
 
 **Source**: `/home/deploy/manager/src/routes/gitRoutes.js`
 
@@ -57,8 +57,8 @@ All endpoints from the Oblien Sandbox Manager are fully covered by the SDK.
 
 | Server Endpoint | Method | SDK Method | Status |
 |----------------|--------|------------|--------|
-| `/search` | POST | `sandbox.search.search()` | ✅ |
-| `/search/filenames` | POST | `sandbox.search.searchFileNames()` | ✅ |
+| `/search` | POST | `sandbox.search.search()` |  |
+| `/search/filenames` | POST | `sandbox.search.searchFileNames()` |  |
 
 **Source**: `/home/deploy/manager/src/routes/searchRoutes.js`
 
@@ -68,7 +68,7 @@ All endpoints from the Oblien Sandbox Manager are fully covered by the SDK.
 
 | Server Endpoint | Method | SDK Method | Status |
 |----------------|--------|------------|--------|
-| `/terminal` | POST | `sandbox.terminal.execute()` | ✅ |
+| `/terminal` | POST | `sandbox.terminal.execute()` |  |
 
 **Source**: `/home/deploy/manager/src/routes/terminalRoutes.js`
 
@@ -78,13 +78,13 @@ All endpoints from the Oblien Sandbox Manager are fully covered by the SDK.
 
 | Server Endpoint | Method | SDK Method | Status |
 |----------------|--------|------------|--------|
-| `/snapshots/commit` | POST | `sandbox.snapshots.commit()` | ✅ |
-| `/snapshots/goto` | POST | `sandbox.snapshots.goto()` | ✅ |
-| `/snapshots/checkpoints` | GET | `sandbox.snapshots.listCheckpoints()` | ✅ |
-| `/snapshots/checkpoint/:hash` | GET | `sandbox.snapshots.getCheckpoint()` | ✅ |
-| `/snapshots/current-checkpoint` | GET | `sandbox.snapshots.getCurrentCheckpoint()` | ✅ |
-| `/snapshots/cleanup` | POST | `sandbox.snapshots.cleanup()` | ✅ |
-| `/snapshots/delete` | POST | `sandbox.snapshots.deleteAfter()` | ✅ |
+| `/snapshots/commit` | POST | `sandbox.snapshots.commit()` |  |
+| `/snapshots/goto` | POST | `sandbox.snapshots.goto()` |  |
+| `/snapshots/checkpoints` | GET | `sandbox.snapshots.listCheckpoints()` |  |
+| `/snapshots/checkpoint/:hash` | GET | `sandbox.snapshots.getCheckpoint()` |  |
+| `/snapshots/current-checkpoint` | GET | `sandbox.snapshots.getCurrentCheckpoint()` |  |
+| `/snapshots/cleanup` | POST | `sandbox.snapshots.cleanup()` |  |
+| `/snapshots/delete` | POST | `sandbox.snapshots.deleteAfter()` |  |
 
 **Source**: `/home/deploy/manager/src/routes/snapshotsRoutes.js`
 
@@ -96,12 +96,12 @@ These are nested under `/snapshots` via `router.use('/', snapshotArchiveRoutes)`
 
 | Server Endpoint | Method | SDK Method | Status |
 |----------------|--------|------------|--------|
-| `/snapshots/archive` | POST | `sandbox.snapshots.archive()` | ✅ |
-| `/snapshots/restore-archive` | POST | `sandbox.snapshots.restore()` | ✅ |
-| `/snapshots/archives` | GET | `sandbox.snapshots.listArchives()` | ✅ |
-| `/snapshots/archive/:id` | GET | `sandbox.snapshots.getArchive()` | ✅ |
-| `/snapshots/archive/:id` | DELETE | `sandbox.snapshots.deleteArchive()` | ✅ |
-| `/snapshots/cleanup-archives` | POST | `sandbox.snapshots.cleanupArchives()` | ✅ |
+| `/snapshots/archive` | POST | `sandbox.snapshots.archive()` |  |
+| `/snapshots/restore-archive` | POST | `sandbox.snapshots.restore()` |  |
+| `/snapshots/archives` | GET | `sandbox.snapshots.listArchives()` |  |
+| `/snapshots/archive/:id` | GET | `sandbox.snapshots.getArchive()` |  |
+| `/snapshots/archive/:id` | DELETE | `sandbox.snapshots.deleteArchive()` |  |
+| `/snapshots/cleanup-archives` | POST | `sandbox.snapshots.cleanupArchives()` |  |
 
 **Source**: `/home/deploy/manager/src/routes/snapshotArchiveRoutes.js`
 
@@ -111,10 +111,10 @@ These are nested under `/snapshots` via `router.use('/', snapshotArchiveRoutes)`
 
 | Server Endpoint | Method | SDK Method | Status |
 |----------------|--------|------------|--------|
-| `/ws/connections` | GET | `sandbox.websocket.getConnections()` | ✅ |
-| `/ws/connection` | GET | `sandbox.websocket.getConnectionStatus()` | ✅ |
-| `/ws/connect` | POST | `sandbox.websocket.connect()` | ✅ |
-| `/ws/disconnect` | POST | `sandbox.websocket.disconnect()` | ✅ |
+| `/ws/connections` | GET | `sandbox.websocket.getConnections()` |  |
+| `/ws/connection` | GET | `sandbox.websocket.getConnectionStatus()` |  |
+| `/ws/connect` | POST | `sandbox.websocket.connect()` |  |
+| `/ws/disconnect` | POST | `sandbox.websocket.disconnect()` |  |
 
 **Source**: `/home/deploy/manager/src/routes/wsRoutes.js`
 
@@ -124,13 +124,13 @@ These are nested under `/snapshots` via `router.use('/', snapshotArchiveRoutes)`
 
 | Server Endpoint | Method | SDK Method | Status |
 |----------------|--------|------------|--------|
-| `/browser/page-content` | POST | `sandbox.browser.getPageContent()` | ✅ |
-| `/browser/monitor-requests` | POST | `sandbox.browser.monitorRequests()` | ✅ |
-| `/browser/screenshot` | POST | `sandbox.browser.screenshot()` | ✅ |
-| `/browser/clean-screenshots` | POST | `sandbox.browser.cleanScreenshots()` | ✅ |
-| `/browser/console-logs` | POST | `sandbox.browser.getConsoleLogs()` | ✅ |
-| `/browser/device-presets` | GET | `sandbox.browser.getDevicePresets()` | ✅ |
-| `/browser/status` | GET | `sandbox.browser.getStatus()` | ✅ |
+| `/browser/page-content` | POST | `sandbox.browser.getPageContent()` |  |
+| `/browser/monitor-requests` | POST | `sandbox.browser.monitorRequests()` |  |
+| `/browser/screenshot` | POST | `sandbox.browser.screenshot()` |  |
+| `/browser/clean-screenshots` | POST | `sandbox.browser.cleanScreenshots()` |  |
+| `/browser/console-logs` | POST | `sandbox.browser.getConsoleLogs()` |  |
+| `/browser/device-presets` | GET | `sandbox.browser.getDevicePresets()` |  |
+| `/browser/status` | GET | `sandbox.browser.getStatus()` |  |
 
 **Source**: `/home/deploy/routes/browserRoutes.js`
 
@@ -142,20 +142,20 @@ These are nested under `/snapshots` via `router.use('/', snapshotArchiveRoutes)`
 
 - **Total Server Endpoints**: 62
 - **SDK Methods Implemented**: 62
-- **Coverage**: 100% ✅
+- **Coverage**: 100% 
 
 ### API Modules
 
 | Module | Endpoints | Methods | Status |
 |--------|-----------|---------|--------|
-| Files | 10 | 10 | ✅ Complete |
-| Git | 15 | 15 | ✅ Complete |
-| Search | 2 | 2 | ✅ Complete |
-| Terminal | 1 | 1 | ✅ Complete |
-| Snapshots | 13 | 13 | ✅ Complete |
-| WebSocket | 4 | 4 | ✅ Complete |
-| Browser | 7 | 7 | ✅ Complete |
-| **Sandboxes** | N/A | 9 | ✅ New (Account Management) |
+| Files | 10 | 10 |  Complete |
+| Git | 15 | 15 |  Complete |
+| Search | 2 | 2 |  Complete |
+| Terminal | 1 | 1 |  Complete |
+| Snapshots | 13 | 13 |  Complete |
+| WebSocket | 4 | 4 |  Complete |
+| Browser | 7 | 7 |  Complete |
+| **Sandboxes** | N/A | 9 |  New (Account Management) |
 
 ### Additional Features
 

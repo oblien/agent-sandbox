@@ -30,19 +30,19 @@ export class OblienClient {
    * @param {Object} config - Client configuration
    * @param {string} config.clientId - Your Oblien client ID
    * @param {string} config.clientSecret - Your Oblien client secret
-   * @param {string} [config.apiURL='https://api.oblien.com/sandbox'] - API base URL
+   * @param {string} [apiURL='https://api.oblien.com/sandbox'] - API base URL
    */
-  constructor(config) {
-    if (!config.clientId) {
+  constructor(config, apiURL = 'https://api.oblien.com/sandbox') {
+    if (!config.clientId && !config.headers) {
       throw new Error('clientId is required');
     }
-    if (!config.clientSecret) {
+    if (!config.clientSecret && !config.headers) {
       throw new Error('clientSecret is required');
     }
-
+    this.headers = config.headers || {};
     this.clientId = config.clientId;
     this.clientSecret = config.clientSecret;
-    this.apiURL = (config.apiURL || 'https://api.oblien.com/sandbox').replace(/\/$/, '');
+    this.apiURL = apiURL.replace(/\/$/, '');
 
     /**
      * Sandboxes API (low-level access)
@@ -74,7 +74,6 @@ export class OblienClient {
    */
   async createSandbox(options = {}) {
     const sandboxInfo = await this.sandboxes.create(options);
-    console.log('sandboxInfo', sandboxInfo);
     return new SandboxClient({
       baseURL: sandboxInfo.url,
       token: sandboxInfo.token,
@@ -97,8 +96,8 @@ export class OblienClient {
    */
   async sandbox(sandboxId) {
     const sandboxInfo = await this.sandboxes.get(sandboxId);
-    if(!sandboxInfo.success) {
-      throw new Error(sandboxInfo.error);
+    if (!sandboxInfo.success) {
+      throw new Error(JSON.stringify(sandboxInfo));
     }
     return new SandboxClient({
       baseURL: sandboxInfo.sandbox.url,
@@ -115,7 +114,8 @@ export class OblienClient {
   getAuthHeaders() {
     return {
       'X-Client-ID': this.clientId,
-      'X-Client-Secret': this.clientSecret
+      'X-Client-Secret': this.clientSecret,
+      ...this.headers
     };
   }
 

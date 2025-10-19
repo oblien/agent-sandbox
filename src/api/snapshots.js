@@ -80,7 +80,7 @@ export class SnapshotsAPI extends BaseAPI {
    * @returns {Promise<Object>} Archive result
    */
   async archive(options) {
-    return this.post('/snapshots/archive', options);
+    return this.post('/snapshot-archive/archive', options);
   }
 
   /**
@@ -91,7 +91,7 @@ export class SnapshotsAPI extends BaseAPI {
    * @returns {Promise<Object>} Restore result
    */
   async restore(options) {
-    return this.post('/snapshots/restore-archive', options);
+    return this.post('/snapshot-archive/restore-archive', options);
   }
 
   /**
@@ -99,7 +99,7 @@ export class SnapshotsAPI extends BaseAPI {
    * @returns {Promise<Object>} Archives list
    */
   async listArchives() {
-    return this.get('/snapshots/archives');
+    return this.get('/snapshot-archive/archives');
   }
 
   /**
@@ -108,7 +108,7 @@ export class SnapshotsAPI extends BaseAPI {
    * @returns {Promise<Object>} Archive info
    */
   async getArchive(id) {
-    return this.get(`/snapshots/archive/${id}`);
+    return this.get(`/snapshot-archive/archive/${id}`);
   }
 
   /**
@@ -117,7 +117,7 @@ export class SnapshotsAPI extends BaseAPI {
    * @returns {Promise<Object>} Delete result
    */
   async deleteArchive(id) {
-    return this.delete(`/snapshots/archive/${id}`);
+    return this.delete(`/snapshot-archive/archive/${id}`);
   }
 
   /**
@@ -126,7 +126,7 @@ export class SnapshotsAPI extends BaseAPI {
    * @returns {Promise<Object>} Cleanup result
    */
   async cleanupArchives(options = {}) {
-    return this.post('/snapshots/cleanup-archives', options);
+    return this.post('/snapshot-archive/cleanup-archives', options);
   }
 }
 
