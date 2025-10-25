@@ -12,12 +12,11 @@ npm install agent-sandbox
 
 ## Quick Start
 
-### The Modern Way (Recommended)
-
 ```javascript
 import { OblienClient } from 'agent-sandbox';
 
 // 1. Initialize client
+// get your own client id and secret from https://oblien.com/dashboard/api
 const client = new OblienClient({
   clientId: process.env.OBLIEN_CLIENT_ID,
   clientSecret: process.env.OBLIEN_CLIENT_SECRET
@@ -535,30 +534,6 @@ const options: FileListOptions = {
 };
 
 const files = await sandbox.files.list(options);
-```
-
-## Architecture
-
-The SDK is organized with a clean, modular structure:
-
-```
-sdk/
-├── src/
-│   ├── index.js           # Main entry point
-│   ├── client.js          # SandboxClient class
-│   ├── types.js           # JSDoc type definitions
-│   ├── api/
-│   │   ├── base.js        # Base API class
-│   │   ├── files.js       # Files API
-│   │   ├── git.js         # Git API
-│   │   ├── search.js      # Search API
-│   │   ├── terminal.js    # Terminal API
-│   │   ├── snapshots.js   # Snapshots API
-│   │   └── websocket.js   # WebSocket API
-│   └── utils/
-│       └── http.js        # HTTP utilities
-├── index.d.ts             # TypeScript definitions
-└── package.json
 ```
 
 Each API module is self-contained and extends the `BaseAPI` class, which handles authentication and common HTTP operations.
