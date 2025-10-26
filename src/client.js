@@ -22,7 +22,7 @@ import { WatcherManager } from './managers/watcher.js';
  * 
  * // Token obtained from sandbox creation
  * const sandbox = new SandboxClient({
- *   baseURL: 'https://sandbox-abc123.oblien.com',
+ *   baseURL: 'https://sandbox.oblien.com',
  *   token: 'sandbox_token_here'
  * });
  * 

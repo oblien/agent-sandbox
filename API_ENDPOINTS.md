@@ -42,7 +42,7 @@ Content-Type: application/json
   "sandbox": {
     "id": "sandbox_abc123xyz",
     "name": "my-dev-sandbox",
-    "url": "https://sandbox-abc123xyz.oblien.com",
+    "url": "https://sandboxxyz.oblien.com",
     "token": "sandbox_token_xyz789...",
     "status": "active",
     "region": "us-east-1",
@@ -93,7 +93,7 @@ X-Client-Secret: your_client_secret
     {
       "id": "sandbox_abc123",
       "name": "my-sandbox",
-      "url": "https://sandbox-abc123.oblien.com",
+      "url": "https://sandbox.oblien.com",
       "status": "active",
       "region": "us-east-1",
       "created_at": "2025-10-18T12:00:00Z"
@@ -124,7 +124,7 @@ X-Client-Secret: your_client_secret
   "sandbox": {
     "id": "sandbox_abc123",
     "name": "my-sandbox",
-    "url": "https://sandbox-abc123.oblien.com",
+    "url": "https://sandbox.oblien.com",
     "token": "sandbox_token_xyz...",
     "status": "active",
     "region": "us-east-1",
