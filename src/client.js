@@ -4,6 +4,7 @@ import { SearchAPI } from './api/search.js';
 import { TerminalAPI } from './api/terminal.js';
 import { SnapshotsAPI } from './api/snapshots.js';
 import { BrowserAPI } from './api/browser.js';
+import { DatabaseAPI } from './api/database.js';
 import { WebSocketConnection } from './websocket/connection.js';
 import { TerminalManager } from './managers/terminal.js';
 import { WatcherManager } from './managers/watcher.js';
@@ -126,6 +127,12 @@ export class SandboxClient {
      * @type {BrowserAPI}
      */
     this.browser = new BrowserAPI(baseURL, token);
+
+    /**
+     * Database API
+     * @type {DatabaseAPI}
+     */
+    this.database = new DatabaseAPI(baseURL, token);
 
     /**
      * Terminal Manager - Real-time terminal via shared WebSocket

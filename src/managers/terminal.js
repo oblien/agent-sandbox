@@ -80,8 +80,8 @@ export class TerminalManager {
     }
     
     return {
-      exitCode: response.exit?.code?.exitCode || 0,
-      signal: response.exit?.code?.signal  || 0,
+      exitCode: response.exit?.code?.exitCode || response.exit?.code || response.exitCode || 0,
+      signal: response.exit?.code?.signal || response.exit?.signal || response.signal || 0,
       logs: Buffer.from(response.logs || '', 'base64').toString('utf-8')
     };
   }

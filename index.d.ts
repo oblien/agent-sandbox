@@ -46,7 +46,6 @@ export interface FileListOptions {
   light?: boolean;
   flattenResults?: boolean;
   maxDepth?: number;
-  ignorePatterns?: string[];
   useGitignore?: boolean;
   pathFilter?: string;
   includeHash?: boolean;
@@ -179,6 +178,113 @@ export interface SnapshotRestoreOptions {
   override?: boolean;
 }
 
+// ============ Database Types ============
+
+export interface DatabaseCreateOptions {
+  name: string;
+}
+
+export interface DatabaseDeleteOptions {
+  database: string;
+}
+
+export interface TableCreateOptions {
+  database: string;
+  tableName: string;
+  columns: Array<{
+    name: string;
+    type: string;
+    primaryKey?: boolean;
+    notNull?: boolean;
+    unique?: boolean;
+    defaultValue?: any;
+    autoIncrement?: boolean;
+  }>;
+}
+
+export interface TableRenameOptions {
+  database: string;
+  table: string;
+  newName: string;
+}
+
+export interface TableDataOptions {
+  database: string;
+  table: string;
+  page?: number;
+  limit?: number;
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
+  where?: Record<string, any>;
+  filters?: Record<string, any>;
+}
+
+export interface RowInsertOptions {
+  database: string;
+  table: string;
+  data: Record<string, any>;
+}
+
+export interface RowUpdateOptions {
+  database: string;
+  table: string;
+  data: Record<string, any>;
+  where: Record<string, any>;
+}
+
+export interface RowDeleteOptions {
+  database: string;
+  table: string;
+  where: Record<string, any>;
+}
+
+export interface QueryExecuteOptions {
+  database: string;
+  query: string;
+  params?: any[];
+}
+
+export interface TransactionExecuteOptions {
+  database: string;
+  queries: Array<{
+    query: string;
+    params?: any[];
+  }>;
+}
+
+export interface ImportFromJSONOptions {
+  database: string;
+  table: string;
+  data: Array<Record<string, any>>;
+  options?: {
+    truncate?: boolean;
+    skipErrors?: boolean;
+  };
+}
+
+export interface ColumnAddOptions {
+  database: string;
+  table: string;
+  name: string;
+  type: string;
+  notNull?: boolean;
+  defaultValue?: any;
+  unique?: boolean;
+  constraints?: Record<string, any>;
+}
+
+export interface IndexCreateOptions {
+  database: string;
+  table: string;
+  name: string;
+  columns: string[];
+  unique?: boolean;
+}
+
+export interface ForeignKeyConstraintsOptions {
+  database: string;
+  enabled: boolean;
+}
 
 export class FilesAPI {
   list(options: FileListOptions): Promise<any>;
@@ -304,9 +410,9 @@ export class WebSocketClient {
   once(event: string, handler: (...args: any[]) => void): void;
 }
 
-export class WebSocketAPI extends BaseAPI {
+export class WebSocketAPI {
   readonly terminal: TerminalManager;
-  readonly watcher: FileWatcher;
+  readonly watcher: WatcherManager;
   readonly client: WebSocketClient;
   readonly isConnected: boolean;
   
@@ -374,6 +480,48 @@ export class BrowserAPI {
   getStatus(): Promise<any>;
 }
 
+export class DatabaseAPI {
+  // Database Operations
+  listDatabases(): Promise<any>;
+  createDatabase(options: DatabaseCreateOptions): Promise<any>;
+  deleteDatabase(options: DatabaseDeleteOptions): Promise<any>;
+  getDatabaseInfo(database: string): Promise<any>;
+
+  // Table Operations
+  listTables(database: string): Promise<any>;
+  getTableSchema(database: string, table: string): Promise<any>;
+  createTable(options: TableCreateOptions): Promise<any>;
+  dropTable(database: string, table: string): Promise<any>;
+  renameTable(options: TableRenameOptions): Promise<any>;
+
+  // Data Operations
+  getTableData(options: TableDataOptions): Promise<any>;
+  insertRow(options: RowInsertOptions): Promise<any>;
+  updateRow(options: RowUpdateOptions): Promise<any>;
+  deleteRow(options: RowDeleteOptions): Promise<any>;
+
+  // Query Operations
+  executeQuery(options: QueryExecuteOptions): Promise<any>;
+  executeTransaction(options: TransactionExecuteOptions): Promise<any>;
+
+  // Import/Export Operations
+  exportTableToJSON(database: string, table: string): Promise<any>;
+  exportTableToCSV(database: string, table: string): Promise<any>;
+  importFromJSON(options: ImportFromJSONOptions): Promise<any>;
+  exportDatabaseToSQL(database: string): Promise<any>;
+
+  // Schema Management Operations
+  addColumn(options: ColumnAddOptions): Promise<any>;
+  listIndexes(database: string, table: string): Promise<any>;
+  createIndex(options: IndexCreateOptions): Promise<any>;
+  dropIndex(database: string, indexName: string): Promise<any>;
+  listForeignKeys(database: string, table: string): Promise<any>;
+  setForeignKeyConstraints(options: ForeignKeyConstraintsOptions): Promise<any>;
+  getForeignKeyStatus(database: string): Promise<any>;
+  getTableSchemaFull(database: string, table: string): Promise<any>;
+  analyzeTable(database: string, table: string): Promise<any>;
+}
+
 export class SandboxesAPI {
   create(options?: SandboxCreateOptions): Promise<SandboxDetails>;
   list(options?: SandboxListOptions): Promise<any>;
@@ -406,6 +554,7 @@ export class SandboxClient {
   search: SearchAPI;
   snapshots: SnapshotsAPI;
   browser: BrowserAPI;
+  database: DatabaseAPI;
   terminal: TerminalManager;
   watcher: WatcherManager;
   websocket: WebSocketAPI;

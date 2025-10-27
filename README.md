@@ -58,6 +58,7 @@ await sandbox.git.clone({
 | 💻 **Terminal** | Execute commands with real-time streaming | [Docs](https://oblien.com/docs/sandbox/terminal) |
 | 📸 **Snapshots** | Create checkpoints and restore environment states | [Docs](https://oblien.com/docs/sandbox/snapshots) |
 | 🌐 **Browser Automation** | Screenshots, page content, network monitoring | [Docs](https://oblien.com/docs/sandbox/browser) |
+| 🗄️ **Database Management** | Full SQLite database operations, schema, and queries | [Docs](https://oblien.com/docs/sandbox/database) |
 | 🔌 **WebSocket** | Real-time file watching and terminal streaming | [Docs](https://oblien.com/docs/sandbox/websocket) |
 | 💪 **TypeScript** | Full type definitions included | - |
 
@@ -162,6 +163,52 @@ const content = await sandbox.browser.getPageContent({
 
 [**→ Full Browser Automation Guide**](https://oblien.com/docs/sandbox/browser)
 
+### Database Management
+
+```javascript
+// Create a database
+await sandbox.database.createDatabase({ name: 'myapp' });
+
+// Create a table
+await sandbox.database.createTable({
+  database: 'myapp',
+  tableName: 'users',
+  columns: [
+    { name: 'id', type: 'INTEGER', primaryKey: true, autoIncrement: true },
+    { name: 'name', type: 'TEXT', notNull: true },
+    { name: 'email', type: 'TEXT', unique: true }
+  ]
+});
+
+// Insert data
+await sandbox.database.insertRow({
+  database: 'myapp',
+  table: 'users',
+  data: { name: 'John Doe', email: 'john@example.com' }
+});
+
+// Query data
+const result = await sandbox.database.getTableData({
+  database: 'myapp',
+  table: 'users',
+  limit: 10,
+  sortBy: 'id',
+  sortOrder: 'desc'
+});
+
+// Execute custom query
+await sandbox.database.executeQuery({
+  database: 'myapp',
+  query: 'SELECT * FROM users WHERE name LIKE ?',
+  params: ['%John%']
+});
+
+// Export to JSON
+const jsonData = await sandbox.database.exportTableToJSON('myapp', 'users');
+```
+
+[**→ Full Database Management Guide**](https://oblien.com/docs/sandbox/database)
+
 ## Advanced Usage
 
 ### Connect to Existing Sandbox
@@ -183,7 +230,11 @@ const sandbox = new SandboxClient({
 Full TypeScript definitions included:
 
 ```typescript
-import { SandboxClient, FileListOptions } from 'agent-sandbox';
+import { 
+  SandboxClient, 
+  FileListOptions,
+  TableCreateOptions 
+} from 'agent-sandbox';
 
 const options: FileListOptions = {
   dirPath: '/opt/app',
@@ -191,6 +242,17 @@ const options: FileListOptions = {
 };
 
 const files = await sandbox.files.list(options);
+
+// Database operations with full type safety
+const tableOptions: TableCreateOptions = {
+  database: 'myapp',
+  tableName: 'users',
+  columns: [
+    { name: 'id', type: 'INTEGER', primaryKey: true }
+  ]
+};
+
+await sandbox.database.createTable(tableOptions);
 ```
 
 ### Error Handling
@@ -215,6 +277,7 @@ try {
 | 💻 **Terminal** | [oblien.com/docs/sandbox/terminal](https://oblien.com/docs/sandbox/terminal) |
 | 📸 **Snapshots** | [oblien.com/docs/sandbox/snapshots](https://oblien.com/docs/sandbox/snapshots) |
 | 🌐 **Browser Automation** | [oblien.com/docs/sandbox/browser](https://oblien.com/docs/sandbox/browser) |
+| 🗄️ **Database Management** | [oblien.com/docs/sandbox/database](https://oblien.com/docs/sandbox/database) |
 | 🔌 **WebSocket & Real-time** | [oblien.com/docs/sandbox/websocket](https://oblien.com/docs/sandbox/websocket) |
 
 ## Support
