@@ -57,9 +57,9 @@ export class SandboxClient {
       throw new Error('token is required');
     }
 
-    const { baseURL, token, sandboxId, sandboxName, oblienClient } = config;
-    
-    this.baseURL = config.baseURL || 'https://api.oblien.com/sandbox';
+    const { baseURL = 'https://sandbox.oblien.com', token, sandboxId, sandboxName, oblienClient } = config;
+
+    this.baseURL = baseURL;
     this.token = token;
     this.sandboxId = sandboxId;
     this.sandboxName = sandboxName;
